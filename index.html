@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2. The New School Term Begins</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #E0F7FA;
+            --card-bg: #FFFFFF;
+            --text-color: #2C3E50;
+            --accent-yellow: #FFD54F;
+            --accent-green: #81C784;
+            --accent-blue: #64B5F6;
+            --accent-purple: #BA68C8;
+            --accent-orange: #FF8A65;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            color: #0288D1;
+            font-size: 2.2rem;
+            text-shadow: 2px 2px #B2EBF2;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background-color: white;
+            color: #0288D1;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background-color: #0288D1;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .page-filter {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .filter-btn {
+            padding: 6px 14px;
+            border: 2px solid #0288D1;
+            background-color: white;
+            color: #0288D1;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .filter-btn.active {
+            background-color: #0288D1;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+            border: 4px solid #B2EBF2;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.1s ease;
+        }
+
+        .action-btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-play { background-color: #4CAF50; }
+        .btn-pause { background-color: #FF9800; }
+        .btn-stop { background-color: #F44336; }
+
+        .dialogue-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .dialogue-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 12px;
+            border-radius: 15px;
+            background-color: #F9F9F9;
+            border: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .dialogue-card.active {
+            background-color: #FFF9C4;
+            border-color: #FBC02D;
+            transform: scale(1.01);
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Avatars */
+        .avatar-teacher { background-color: #E91E63; }
+        .avatar-children { background-color: #9C27B0; }
+        .avatar-anu { background-color: #2196F3; }
+        .avatar-neha { background-color: #4CAF50; }
+        .avatar-roop { background-color: #FF9800; }
+        .avatar-deep { background-color: #00BCD4; }
+        .avatar-mona { background-color: #E91E63; }
+        .avatar-prem { background-color: #795548; }
+        .avatar-zia { background-color: #FF4081; }
+        .avatar-amit { background-color: #3F51B5; }
+        .avatar-karan { background-color: #009688; }
+        .avatar-ajit { background-color: #8BC34A; }
+
+        .speech-content {
+            flex-grow: 1;
+        }
+
+        .speaker-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .speaker-name {
+            font-weight: bold;
+            font-size: 1.05rem;
+        }
+
+        .listen-btn {
+            background: #E3F2FD;
+            border: 1px solid #90CAF9;
+            color: #1976D2;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .listen-btn:hover {
+            background: #BBDEFB;
+        }
+
+        .speech-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        /* Interactive Words Styling */
+        .word {
+            display: inline-block;
+            padding: 2px 4px;
+            margin: 0 1px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .word:hover {
+            background-color: #E1F5FE;
+            color: #0288D1;
+            transform: scale(1.15);
+            font-weight: bold;
+        }
+
+        .word.word-active {
+            background-color: #FFEB3B;
+            transform: scale(1.2);
+            font-weight: bold;
+        }
+
+        .stage-direction {
+            font-style: italic;
+            text-align: center;
+            color: #777;
+            padding: 8px;
+            background: #ECEFF1;
+            border-radius: 10px;
+        }
+
+        .part-header {
+            background: #0288D1;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        /* Game Section */
+        .game-section {
+            display: none;
+            text-align: center;
+        }
+
+        .game-section.active {
+            display: block;
+        }
+
+        .match-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .draggable-item, .drop-zone {
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .draggable-item {
+            background-color: #E3F2FD;
+            border: 2px solid #2196F3;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .draggable-item.selected {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .drop-zone {
+            background-color: #FFF3E0;
+            border: 2px dashed #FF9800;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drop-zone.matched {
+            background-color: #C8E6C9;
+            border-style: solid;
+            border-color: #4CAF50;
+            color: #2E7D32;
+        }
+
+        .score-board {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #388E3C;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .match-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>2. THE NEW SCHOOL TERM BEGINS</h1>
+        <p class="subtitle">🔊 Read dialogues, tap words to hear them spoken!</p>
+    </header>
+
+    <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('story')">📖 Story & Words</button>
+        <button class="tab-btn" onclick="switchTab('game')">🎮 Matching Game</button>
+    </div>
+
+    <!-- STORY SECTION -->
+    <div id="storyView" class="container">
+        
+        <div class="page-filter">
+            <button class="filter-btn active" onclick="filterPart('all')">All Story</button>
+            <button class="filter-btn" onclick="filterPart(1)">Part 1 (Page 6)</button>
+            <button class="filter-btn" onclick="filterPart(2)">Part 2 (Page 7)</button>
+        </div>
+
+        <div class="controls">
+            <button class="action-btn btn-play" onclick="playStory()">▶️ Read All</button>
+            <button class="action-btn btn-pause" onclick="pauseStory()">⏸️ Pause</button>
+            <button class="action-btn btn-stop" onclick="stopStory()">⏹️ Stop</button>
+        </div>
+
+        <div class="dialogue-list" id="dialogueList">
+            <!-- Dialogues rendered dynamically -->
+        </div>
+    </div>
+
+    <!-- GAME SECTION -->
+    <div id="gameView" class="container game-section">
+        <h2>Who Did What? 🤔</h2>
+        <p>Click a child on the left, then click their holiday activity on the right!</p>
+        
+        <div class="match-grid">
+            <div id="childrenList" style="display:flex; flex-direction:column; gap:10px;"></div>
+            <div id="activitiesList" style="display:flex; flex-direction:column; gap:10px;"></div>
+        </div>
+
+        <div class="score-board" id="scoreBoard">Matches: 0 / 0</div>
+    </div>
+
+    <script>
+        const storyData = [
+            // PART 1 (Page 6)
+            { type: 'part-header', text: "Part 1 - Page 6", part: 1 },
+            { type: 'stage', text: "(The teacher greets the children)", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Good morning, children.", part: 1 },
+            { speaker: "Children", avatar: "👧👦", class: "avatar-children", text: "Good morning, teacher.", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "It is nice to meet you all. Did you enjoy your holidays?", part: 1 },
+            { speaker: "Children", avatar: "👧👦", class: "avatar-children", text: "Yes, teacher.", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Anu, did you go anywhere in the holidays?", part: 1 },
+            { speaker: "Anu", avatar: "👧", class: "avatar-anu", text: "Yes, teacher. I visited my grandparents.", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "And you, Neha?", part: 1 },
+            { speaker: "Neha", avatar: "👧", class: "avatar-neha", text: "I had been to Ooty.", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "That’s lovely. Where did you go, Roop?", part: 1 },
+            { speaker: "Roop", avatar: "👦", class: "avatar-roop", text: "I went to painting classes.", part: 1 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Good. Deep, what did you do?", part: 1 },
+            { speaker: "Deep", avatar: "👦", class: "avatar-deep", text: "I learnt swimming and dancing.", part: 1 },
+
+            // PART 2 (Page 7)
+            { type: 'part-header', text: "Part 2 - Page 7", part: 2 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Wonderful! Let me know, what you did, Mona.", part: 2 },
+            { speaker: "Mona", avatar: "👧", class: "avatar-mona", text: "I visited Goa.", part: 2 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "That’s nice. And what about you?", part: 2 },
+            { speaker: "Prem", avatar: "👦", class: "avatar-prem", text: "I did not go anywhere. But daddy took us for outings every day.", part: 2 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "And you?", part: 2 },
+            { speaker: "Zia", avatar: "👧", class: "avatar-zia", text: "My cousins came to my house. I had lots of fun.", part: 2 },
+            { speaker: "Amit", avatar: "👦", class: "avatar-amit", text: "My cousins also came here. We played a lot.", part: 2 },
+            { speaker: "Karan", avatar: "👦", class: "avatar-karan", text: "I went to music classes, teacher.", part: 2 },
+            { speaker: "Ajit", avatar: "👦", class: "avatar-ajit", text: "I learnt how to play the guitar.", part: 2 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Good. Are you happy to be at school again?", part: 2 },
+            { speaker: "Children", avatar: "👧👦", class: "avatar-children", text: "Yes, teacher.", part: 2 },
+            { speaker: "Teacher", avatar: "👩‍🏫", class: "avatar-teacher", text: "Now, let’s go on with our lessons.", part: 2 }
+        ];
+
+        let currentFilter = 'all';
+        let currentLine = 0;
+        let isPlaying = false;
+        let synth = window.speechSynthesis;
+
+        function renderStory() {
+            const list = document.getElementById('dialogueList');
+            list.innerHTML = '';
+            
+            storyData.forEach((item, index) => {
+                if(currentFilter !== 'all' && item.part !== currentFilter) return;
+
+                if(item.type === 'part-header') {
+                    const hDiv = document.createElement('div');
+                    hDiv.className = 'part-header';
+                    hDiv.innerText = item.text;
+                    list.appendChild(hDiv);
+                } else if(item.type === 'stage') {
+                    const stageDiv = document.createElement('div');
+                    stageDiv.className = 'stage-direction';
+                    stageDiv.innerText = item.text;
+                    list.appendChild(stageDiv);
+                } else {
+                    const card = document.createElement('div');
+                    card.className = 'dialogue-card';
+                    card.id = `line-${index}`;
+
+                    const wordsHtml = item.text.split(' ').map((word, wIdx) => {
+                        const cleanWord = word.replace(/[^a-zA-Z’']/g, "");
+                        return `<span class="word" id="word-${index}-${wIdx}" onclick="playWord('${cleanWord}', this, event)">${word}</span>`;
+                    }).join(' ');
+
+                    card.innerHTML = `
+                        <div class="avatar ${item.class}" onclick="playSingleLine(${index})">${item.avatar}</div>
+                        <div class="speech-content">
+                            <div class="speaker-header">
+                                <span class="speaker-name">${item.speaker}</span>
+                                <button class="listen-btn" onclick="playSingleLine(${index})">🔊 Read Sentence</button>
+                            </div>
+                            <div class="speech-text">${wordsHtml}</div>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                }
+            });
+        }
+
+        function filterPart(part) {
+            stopStory();
+            currentFilter = part;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            if(part === 'all') document.querySelectorAll('.filter-btn')[0].classList.add('active');
+            if(part === 1) document.querySelectorAll('.filter-btn')[1].classList.add('active');
+            if(part === 2) document.querySelectorAll('.filter-btn')[2].classList.add('active');
+            renderStory();
+        }
+
+        function speakText(text, rate = 0.85, onEnd = null) {
+            synth.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = rate; 
+            utterance.pitch = 1.1;
+            utterance.onend = onEnd;
+            synth.speak(utterance);
+        }
+
+        function playWord(word, element, event) {
+            event.stopPropagation();
+            stopStory();
+
+            document.querySelectorAll('.word').forEach(w => w.classList.remove('word-active'));
+            element.classList.add('word-active');
+
+            speakText(word, 0.7, () => {
+                element.classList.remove('word-active');
+            });
+        }
+
+        function highlightLine(index) {
+            document.querySelectorAll('.dialogue-card').forEach(c => c.classList.remove('active'));
+            const card = document.getElementById(`line-${index}`);
+            if(card) {
+                card.classList.add('active');
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function playStorySequence() {
+            if(!isPlaying || currentLine >= storyData.length) {
+                isPlaying = false;
+                document.querySelectorAll('.dialogue-card').forEach(c => c.classList.remove('active'));
+                return;
+            }
+
+            const item = storyData[currentLine];
+            
+            if(currentFilter !== 'all' && item.part !== currentFilter) {
+                currentLine++;
+                playStorySequence();
+                return;
+            }
+
+            if(item.type === 'part-header' || item.type === 'stage') {
+                currentLine++;
+                playStorySequence();
+            } else {
+                highlightLine(currentLine);
+                speakText(item.speaker + " says: " + item.text, 0.85, () => {
+                    currentLine++;
+                    if(isPlaying) playStorySequence();
+                });
+            }
+        }
+
+        function playStory() {
+            if(synth.paused) {
+                synth.resume();
+                isPlaying = true;
+                return;
+            }
+            if(!isPlaying) {
+                isPlaying = true;
+                if(currentLine >= storyData.length) currentLine = 0;
+                playStorySequence();
+            }
+        }
+
+        function pauseStory() {
+            if(synth.speaking) {
+                synth.pause();
+                isPlaying = false;
+            }
+        }
+
+        function stopStory() {
+            synth.cancel();
+            isPlaying = false;
+            currentLine = 0;
+            document.querySelectorAll('.dialogue-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.word').forEach(w => w.classList.remove('word-active'));
+        }
+
+        function playSingleLine(index) {
+            stopStory();
+            currentLine = index;
+            highlightLine(index);
+            const item = storyData[index];
+            if(item.text) {
+                speakText(item.text, 0.85, () => {
+                    document.getElementById(`line-${index}`).classList.remove('active');
+                });
+            }
+        }
+
+        function switchTab(tab) {
+            stopStory();
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(tab === 'story') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+                document.getElementById('storyView').style.display = 'block';
+                document.getElementById('gameView').classList.remove('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+                document.getElementById('storyView').style.display = 'none';
+                document.getElementById('gameView').classList.add('active');
+                initGame();
+            }
+        }
+
+        // --- MATCHING GAME LOGIC ---
+        const gamePairs = [
+            { child: "Anu", activity: "Visited grandparents 👵👴" },
+            { child: "Neha", activity: "Went to Ooty 🏔️" },
+            { child: "Roop", activity: "Painting classes 🎨" },
+            { child: "Deep", activity: "Swimming and dancing 🏊‍♂️💃" },
+            { child: "Mona", activity: "Visited Goa 🏖️" },
+            { child: "Prem", activity: "Daddy took us for outings 🚗" },
+            { child: "Zia", activity: "Cousins came & had fun 🏡" },
+            { child: "Karan", activity: "Music classes 🎵" },
+            { child: "Ajit", activity: "Learnt playing guitar 🎸" }
+        ];
+
+        let selectedChild = null;
+        let matchesCount = 0;
+
+        function initGame() {
+            matchesCount = 0;
+            selectedChild = null;
+            document.getElementById('scoreBoard').innerText = `Matches: 0 / ${gamePairs.length}`;
+            
+            const childrenContainer = document.getElementById('childrenList');
+            const activityContainer = document.getElementById('activitiesList');
+
+            childrenContainer.innerHTML = '';
+            activityContainer.innerHTML = '';
+
+            const shuffledChildren = [...gamePairs].sort(() => Math.random() - 0.5);
+            const shuffledActivities = [...gamePairs].sort(() => Math.random() - 0.5);
+
+            shuffledChildren.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'draggable-item';
+                div.innerText = item.child;
+                div.onclick = () => selectChild(div, item.child);
+                childrenContainer.appendChild(div);
+            });
+
+            shuffledActivities.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'drop-zone';
+                div.innerText = item.activity;
+                div.onclick = () => matchActivity(div, item.child);
+                activityContainer.appendChild(div);
+            });
+        }
+
+        function selectChild(element, name) {
+            document.querySelectorAll('.draggable-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedChild = { element, name };
+            speakText(name, 0.9);
+        }
+
+        function matchActivity(element, correctChild) {
+            if(!selectedChild) return;
+
+            if(selectedChild.name === correctChild) {
+                element.classList.add('matched');
+                element.innerText = `${correctChild} - ${element.innerText} ✅`;
+                selectedChild.element.style.visibility = 'hidden';
+                selectedChild = null;
+                matchesCount++;
+                document.getElementById('scoreBoard').innerText = `Matches: ${matchesCount} / ${gamePairs.length}`;
+
+                speakText("Correct!", 1.0);
+
+                if(matchesCount === gamePairs.length) {
+                    setTimeout(() => {
+                        speakText("Awesome! You completed all matches!", 0.9);
+                        alert("🎉 Fantastic! You completed the game!");
+                    }, 500);
+                }
+            } else {
+                element.style.borderColor = "red";
+                speakText("Try again!", 0.9);
+                setTimeout(() => element.style.borderColor = "#FF9800", 800);
+            }
+        }
+
+        window.onload = renderStory;
+    </script>
+</body>
+</html>
